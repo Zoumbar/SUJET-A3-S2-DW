@@ -1,0 +1,5 @@
+{
+    "require": {
+        "symfony/maker-bundle": "^1.18"
+    }
+}
