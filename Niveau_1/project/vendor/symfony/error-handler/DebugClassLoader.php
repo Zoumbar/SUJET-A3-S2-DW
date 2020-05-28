@@ -401,6 +401,7 @@ class DebugClassLoader
         if (
             'Symfony\Bridge\PhpUnit\Legacy\SymfonyTestsListenerForV7' === $class
             || 'Symfony\Bridge\PhpUnit\Legacy\SymfonyTestsListenerForV6' === $class
+            || 'Test\Symfony\Component\Debug\Tests' === $refl->getNamespaceName()
         ) {
             return [];
         }
@@ -756,7 +757,7 @@ class DebugClassLoader
         }
 
         if (isset($dirFiles[$file])) {
-            return $real.$dirFiles[$file];
+            return $real .= $dirFiles[$file];
         }
 
         $kFile = strtolower($file);
@@ -775,7 +776,7 @@ class DebugClassLoader
             self::$darwinCache[$kDir][1] = $dirFiles;
         }
 
-        return $real.$dirFiles[$kFile];
+        return $real .= $dirFiles[$kFile];
     }
 
     /**

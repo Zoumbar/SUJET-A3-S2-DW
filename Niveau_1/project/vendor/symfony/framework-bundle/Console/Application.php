@@ -19,6 +19,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Kernel;
@@ -206,7 +207,15 @@ class Application extends BaseApplication
         (new SymfonyStyle($input, $output))->warning('Some commands could not be registered:');
 
         foreach ($this->registrationErrors as $error) {
-            $this->doRenderThrowable($error, $output);
+            if (method_exists($this, 'doRenderThrowable')) {
+                $this->doRenderThrowable($error, $output);
+            } else {
+                if (!$error instanceof \Exception) {
+                    $error = new FatalThrowableError($error);
+                }
+
+                $this->doRenderException($error, $output);
+            }
         }
     }
 }

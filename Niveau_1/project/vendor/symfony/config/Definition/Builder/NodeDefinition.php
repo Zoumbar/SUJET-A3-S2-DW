@@ -59,9 +59,11 @@ abstract class NodeDefinition implements NodeParentInterface
     /**
      * Sets info message.
      *
+     * @param string $info The info text
+     *
      * @return $this
      */
-    public function info(string $info)
+    public function info($info)
     {
         return $this->attribute('info', $info);
     }
@@ -81,11 +83,12 @@ abstract class NodeDefinition implements NodeParentInterface
     /**
      * Sets an attribute on the node.
      *
-     * @param mixed $value
+     * @param string $key
+     * @param mixed  $value
      *
      * @return $this
      */
-    public function attribute(string $key, $value)
+    public function attribute($key, $value)
     {
         $this->attributes[$key] = $value;
 
@@ -109,7 +112,7 @@ abstract class NodeDefinition implements NodeParentInterface
      *
      * @return NodeInterface
      */
-    public function getNode(bool $forceRootNode = false)
+    public function getNode($forceRootNode = false)
     {
         if ($forceRootNode) {
             $this->parent = null;
@@ -162,9 +165,11 @@ abstract class NodeDefinition implements NodeParentInterface
      * You can use %node% and %path% placeholders in your message to display,
      * respectively, the node name and its complete path.
      *
+     * @param string $message Deprecation message
+     *
      * @return $this
      */
-    public function setDeprecated(string $message = 'The child node "%node%" at path "%path%" is deprecated.')
+    public function setDeprecated($message = 'The child node "%node%" at path "%path%" is deprecated.')
     {
         $this->deprecationMessage = $message;
 
@@ -282,9 +287,11 @@ abstract class NodeDefinition implements NodeParentInterface
     /**
      * Sets whether the node can be overwritten.
      *
+     * @param bool $deny Whether the overwriting is forbidden or not
+     *
      * @return $this
      */
-    public function cannotBeOverwritten(bool $deny = true)
+    public function cannotBeOverwritten($deny = true)
     {
         $this->merge()->denyOverwrite($deny);
 
@@ -350,8 +357,12 @@ abstract class NodeDefinition implements NodeParentInterface
     public function setPathSeparator(string $separator)
     {
         if ($this instanceof ParentNodeDefinitionInterface) {
-            foreach ($this->getChildNodeDefinitions() as $child) {
-                $child->setPathSeparator($separator);
+            if (method_exists($this, 'getChildNodeDefinitions')) {
+                foreach ($this->getChildNodeDefinitions() as $child) {
+                    $child->setPathSeparator($separator);
+                }
+            } else {
+                @trigger_error(sprintf('Not implementing the "%s::getChildNodeDefinitions()" method in "%s" is deprecated since Symfony 4.1.', ParentNodeDefinitionInterface::class, static::class), E_USER_DEPRECATED);
             }
         }
 

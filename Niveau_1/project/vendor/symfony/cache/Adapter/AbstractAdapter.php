@@ -98,9 +98,14 @@ abstract class AbstractAdapter implements AdapterInterface, CacheInterface, Logg
      *
      * Using ApcuAdapter makes system caches compatible with read-only filesystems.
      *
+     * @param string $namespace
+     * @param int    $defaultLifetime
+     * @param string $version
+     * @param string $directory
+     *
      * @return AdapterInterface
      */
-    public static function createSystemCache(string $namespace, int $defaultLifetime, string $version, string $directory, LoggerInterface $logger = null)
+    public static function createSystemCache($namespace, $defaultLifetime, $version, $directory, LoggerInterface $logger = null)
     {
         $opcache = new PhpFilesAdapter($namespace, $defaultLifetime, $directory, true);
         if (null !== $logger) {
@@ -123,8 +128,11 @@ abstract class AbstractAdapter implements AdapterInterface, CacheInterface, Logg
         return new ChainAdapter([$apcu, $opcache]);
     }
 
-    public static function createConnection(string $dsn, array $options = [])
+    public static function createConnection($dsn, array $options = [])
     {
+        if (!\is_string($dsn)) {
+            throw new InvalidArgumentException(sprintf('The "%s()" method expect argument #1 to be string, "%s" given.', __METHOD__, \gettype($dsn)));
+        }
         if (0 === strpos($dsn, 'redis:') || 0 === strpos($dsn, 'rediss:')) {
             return RedisAdapter::createConnection($dsn, $options);
         }

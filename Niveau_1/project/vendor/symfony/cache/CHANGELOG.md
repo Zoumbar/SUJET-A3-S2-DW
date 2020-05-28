@@ -1,14 +1,6 @@
 CHANGELOG
 =========
 
-5.0.0
------
-
- * removed all PSR-16 implementations in the `Simple` namespace
- * removed `SimpleCacheAdapter`
- * removed `AbstractAdapter::unserialize()`
- * removed `CacheItem::getPreviousTags()`
-
 4.4.0
 -----
 

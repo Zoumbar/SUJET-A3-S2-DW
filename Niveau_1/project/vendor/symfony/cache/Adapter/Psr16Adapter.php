@@ -55,7 +55,7 @@ class Psr16Adapter extends AbstractAdapter implements PruneableInterface, Resett
     /**
      * {@inheritdoc}
      */
-    protected function doHave(string $id)
+    protected function doHave($id)
     {
         return $this->pool->has($id);
     }
@@ -63,7 +63,7 @@ class Psr16Adapter extends AbstractAdapter implements PruneableInterface, Resett
     /**
      * {@inheritdoc}
      */
-    protected function doClear(string $namespace)
+    protected function doClear($namespace)
     {
         return $this->pool->clear();
     }
@@ -79,7 +79,7 @@ class Psr16Adapter extends AbstractAdapter implements PruneableInterface, Resett
     /**
      * {@inheritdoc}
      */
-    protected function doSave(array $values, int $lifetime)
+    protected function doSave(array $values, $lifetime)
     {
         return $this->pool->setMultiple($values, 0 === $lifetime ? null : $lifetime);
     }

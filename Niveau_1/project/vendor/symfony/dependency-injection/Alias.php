@@ -44,11 +44,13 @@ class Alias
     /**
      * Sets if this Alias is public.
      *
+     * @param bool $boolean If this Alias should be public
+     *
      * @return $this
      */
-    public function setPublic(bool $boolean)
+    public function setPublic($boolean)
     {
-        $this->public = $boolean;
+        $this->public = (bool) $boolean;
         $this->private = false;
 
         return $this;
@@ -62,11 +64,13 @@ class Alias
      * but triggers a deprecation notice when accessed from the container,
      * so that the alias can be made really private in 4.0.
      *
+     * @param bool $boolean
+     *
      * @return $this
      */
-    public function setPrivate(bool $boolean)
+    public function setPrivate($boolean)
     {
-        $this->private = $boolean;
+        $this->private = (bool) $boolean;
 
         return $this;
     }
@@ -92,7 +96,7 @@ class Alias
      *
      * @throws InvalidArgumentException when the message template is invalid
      */
-    public function setDeprecated(bool $status = true, string $template = null)
+    public function setDeprecated($status = true, $template = null)
     {
         if (null !== $template) {
             if (preg_match('#[\r\n]|\*/#', $template)) {
@@ -106,7 +110,7 @@ class Alias
             $this->deprecationTemplate = $template;
         }
 
-        $this->deprecated = $status;
+        $this->deprecated = (bool) $status;
 
         return $this;
     }

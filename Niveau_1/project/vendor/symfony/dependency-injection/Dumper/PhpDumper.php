@@ -20,7 +20,6 @@ use Symfony\Component\DependencyInjection\Argument\ServiceLocator;
 use Symfony\Component\DependencyInjection\Argument\ServiceLocatorArgument;
 use Symfony\Component\DependencyInjection\Compiler\AnalyzeServiceReferencesPass;
 use Symfony\Component\DependencyInjection\Compiler\CheckCircularReferencesPass;
-use Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphEdge;
 use Symfony\Component\DependencyInjection\Compiler\ServiceReferenceGraphNode;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -406,9 +405,6 @@ EOF;
         return $this->proxyDumper;
     }
 
-    /**
-     * @param ServiceReferenceGraphEdge[] $edges
-     */
     private function analyzeCircularReferences(string $sourceId, array $edges, array &$checkedNodes, array &$currentPath = [], bool $byConstructor = true)
     {
         $checkedNodes[$sourceId] = true;
@@ -1419,8 +1415,9 @@ EOF;
 
         $code = <<<'EOF'
 
-    public function getParameter(string $name)
+    public function getParameter($name)
     {
+        $name = (string) $name;
         if (isset($this->buildParameters[$name])) {
             return $this->buildParameters[$name];
         }
@@ -1435,8 +1432,9 @@ EOF;
         return $this->parameters[$name];
     }
 
-    public function hasParameter(string $name): bool
+    public function hasParameter($name): bool
     {
+        $name = (string) $name;
         if (isset($this->buildParameters[$name])) {
             return true;
         }
@@ -1444,7 +1442,7 @@ EOF;
         return isset($this->parameters[$name]) || isset($this->loadedDynamicParameters[$name]) || array_key_exists($name, $this->parameters);
     }
 
-    public function setParameter(string $name, $value): void
+    public function setParameter($name, $value): void
     {
         throw new LogicException('Impossible to call set() on a frozen ParameterBag.');
     }
@@ -1467,7 +1465,7 @@ EOF;
 
 EOF;
         if (!$this->asFiles) {
-            $code = preg_replace('/^.*buildParameters.*\n.*\n.*\n\n?/m', '', $code);
+            $code = preg_replace('/^.*buildParameters.*\n.*\n.*\n/m', '', $code);
         }
 
         if ($dynamicPhp) {

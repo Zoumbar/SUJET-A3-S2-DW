@@ -14,6 +14,7 @@ namespace Symfony\Bundle\FrameworkBundle\CacheWarmer;
 use Doctrine\Common\Annotations\AnnotationException;
 use Doctrine\Common\Annotations\CachedReader;
 use Doctrine\Common\Annotations\Reader;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;
 use Symfony\Component\Cache\DoctrineProvider;
 
@@ -30,10 +31,17 @@ class AnnotationsCacheWarmer extends AbstractPhpFileCacheWarmer
     private $debug;
 
     /**
-     * @param string $phpArrayFile The PHP file where annotations are cached
+     * @param string $phpArrayFile  The PHP file where annotations are cached
+     * @param string $excludeRegexp
+     * @param bool   $debug
      */
-    public function __construct(Reader $annotationReader, string $phpArrayFile, string $excludeRegexp = null, bool $debug = false)
+    public function __construct(Reader $annotationReader, string $phpArrayFile, $excludeRegexp = null, $debug = false)
     {
+        if ($excludeRegexp instanceof CacheItemPoolInterface) {
+            @trigger_error(sprintf('The CacheItemPoolInterface $fallbackPool argument of "%s()" is deprecated since Symfony 4.2, you should not pass it anymore.', __METHOD__), E_USER_DEPRECATED);
+            $excludeRegexp = $debug;
+            $debug = 4 < \func_num_args() && func_get_arg(4);
+        }
         parent::__construct($phpArrayFile);
         $this->annotationReader = $annotationReader;
         $this->excludeRegexp = $excludeRegexp;
@@ -43,7 +51,7 @@ class AnnotationsCacheWarmer extends AbstractPhpFileCacheWarmer
     /**
      * {@inheritdoc}
      */
-    protected function doWarmUp(string $cacheDir, ArrayAdapter $arrayAdapter)
+    protected function doWarmUp($cacheDir, ArrayAdapter $arrayAdapter)
     {
         $annotatedClassPatterns = $cacheDir.'/annotations.map';
 

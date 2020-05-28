@@ -16,7 +16,7 @@ namespace Symfony\Component\Config\Resource;
  *
  * @author Nicolas Grekas <p@tchwork.com>
  *
- * @final
+ * @final since Symfony 4.3
  */
 class ComposerResource implements SelfCheckingResourceInterface
 {
@@ -30,7 +30,7 @@ class ComposerResource implements SelfCheckingResourceInterface
         $this->vendors = self::$runtimeVendors;
     }
 
-    public function getVendors(): array
+    public function getVendors()
     {
         return array_keys($this->vendors);
     }
@@ -38,7 +38,7 @@ class ComposerResource implements SelfCheckingResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function __toString(): string
+    public function __toString()
     {
         return __CLASS__;
     }
@@ -46,7 +46,7 @@ class ComposerResource implements SelfCheckingResourceInterface
     /**
      * {@inheritdoc}
      */
-    public function isFresh(int $timestamp): bool
+    public function isFresh($timestamp)
     {
         self::refresh();
 

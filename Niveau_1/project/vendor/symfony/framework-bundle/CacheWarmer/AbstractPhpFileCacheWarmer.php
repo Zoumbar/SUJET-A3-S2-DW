@@ -43,7 +43,7 @@ abstract class AbstractPhpFileCacheWarmer implements CacheWarmerInterface
     /**
      * {@inheritdoc}
      */
-    public function warmUp(string $cacheDir)
+    public function warmUp($cacheDir)
     {
         $arrayAdapter = new ArrayAdapter();
 
@@ -81,7 +81,9 @@ abstract class AbstractPhpFileCacheWarmer implements CacheWarmerInterface
     }
 
     /**
+     * @param string $cacheDir
+     *
      * @return bool false if there is nothing to warm-up
      */
-    abstract protected function doWarmUp(string $cacheDir, ArrayAdapter $arrayAdapter);
+    abstract protected function doWarmUp($cacheDir, ArrayAdapter $arrayAdapter);
 }

@@ -4,11 +4,12 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10
+class ComposerStaticInitf5d94ac1fddc447564deafc683e13789
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '92c8763cd6170fce6fcfe7e26b4e8c10' => __DIR__ . '/..' . '/symfony/phpunit-bridge/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
@@ -31,6 +32,7 @@ class ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10
         'S' => 
         array (
             'Symfony\\Polyfill\\Php73\\' => 23,
+            'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Intl\\Idn\\' => 26,
             'Symfony\\Flex\\' => 13,
@@ -68,6 +70,7 @@ class ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10
             'Symfony\\Component\\Dotenv\\' => 25,
             'Symfony\\Component\\DomCrawler\\' => 29,
             'Symfony\\Component\\DependencyInjection\\' => 38,
+            'Symfony\\Component\\Debug\\' => 24,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
@@ -87,7 +90,6 @@ class ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Link\\' => 9,
-            'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
@@ -151,6 +153,10 @@ class ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10
         'Symfony\\Polyfill\\Php73\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php73',
+        ),
+        'Symfony\\Polyfill\\Php72\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php72',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
@@ -300,6 +306,10 @@ class ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10
         array (
             0 => __DIR__ . '/..' . '/symfony/dependency-injection',
         ),
+        'Symfony\\Component\\Debug\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/debug',
+        ),
         'Symfony\\Component\\CssSelector\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/css-selector',
@@ -363,10 +373,6 @@ class ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10
         'Psr\\Link\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/link/src',
-        ),
-        'Psr\\EventDispatcher\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
         'Psr\\Container\\' => 
         array (
@@ -492,9 +498,9 @@ class ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc127e2e1dcbf1d6f3132cb0b36dd0c10::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf5d94ac1fddc447564deafc683e13789::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf5d94ac1fddc447564deafc683e13789::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf5d94ac1fddc447564deafc683e13789::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -68,10 +68,11 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
      * Processes a value found in a definition tree.
      *
      * @param mixed $value
+     * @param bool  $isRoot
      *
      * @return mixed The processed value
      */
-    protected function processValue($value, bool $isRoot = false)
+    protected function processValue($value, $isRoot = false)
     {
         if (\is_array($value)) {
             foreach ($value as $k => $v) {
@@ -104,11 +105,13 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
     }
 
     /**
+     * @param bool $required
+     *
      * @return \ReflectionFunctionAbstract|null
      *
      * @throws RuntimeException
      */
-    protected function getConstructor(Definition $definition, bool $required)
+    protected function getConstructor(Definition $definition, $required)
     {
         if ($definition->isSynthetic()) {
             return null;
@@ -164,11 +167,13 @@ abstract class AbstractRecursivePass implements CompilerPassInterface
     }
 
     /**
+     * @param string $method
+     *
      * @throws RuntimeException
      *
      * @return \ReflectionFunctionAbstract
      */
-    protected function getReflectionMethod(Definition $definition, string $method)
+    protected function getReflectionMethod(Definition $definition, $method)
     {
         if ('__construct' === $method) {
             return $this->getConstructor($definition, true);

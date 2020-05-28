@@ -15,15 +15,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Article
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue(strategy="UUID")
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-    public function __toString()
-    {
-        return (string) $this->getId();
-    }
+    * @ORM\Id()
+    * @ORM\GeneratedValue(strategy="UUID")
+    * @ORM\Column(type="guid", unique=true)
+    */
+private $id;
+
     /**
      * @ORM\Column(type="text")
      */
@@ -54,6 +51,10 @@ class Article
         $this->body = $body;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 
     /**

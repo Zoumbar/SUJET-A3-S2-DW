@@ -47,7 +47,7 @@ class ResolveHotPathPass extends AbstractRecursivePass
     /**
      * {@inheritdoc}
      */
-    protected function processValue($value, bool $isRoot = false)
+    protected function processValue($value, $isRoot = false)
     {
         if ($value instanceof ArgumentInterface) {
             return $value;

@@ -32,7 +32,7 @@ class ContainerControllerResolver extends ControllerResolver
         parent::__construct($logger);
     }
 
-    protected function createController(string $controller)
+    protected function createController($controller)
     {
         if (1 === substr_count($controller, ':')) {
             $controller = str_replace(':', '::', $controller);
@@ -45,7 +45,7 @@ class ContainerControllerResolver extends ControllerResolver
     /**
      * {@inheritdoc}
      */
-    protected function instantiateController(string $class)
+    protected function instantiateController($class)
     {
         $class = ltrim($class, '\\');
 

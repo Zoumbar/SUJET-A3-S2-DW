@@ -98,11 +98,13 @@ class ControllerResolver implements ControllerResolverInterface
     /**
      * Returns a callable for the given controller.
      *
+     * @param string $controller A Controller string
+     *
      * @return callable A PHP callable
      *
      * @throws \InvalidArgumentException When the controller cannot be created
      */
-    protected function createController(string $controller)
+    protected function createController($controller)
     {
         if (false === strpos($controller, '::')) {
             $controller = $this->instantiateController($controller);
@@ -140,9 +142,11 @@ class ControllerResolver implements ControllerResolverInterface
     /**
      * Returns an instantiated controller.
      *
+     * @param string $class A class name
+     *
      * @return object
      */
-    protected function instantiateController(string $class)
+    protected function instantiateController($class)
     {
         return new $class();
     }

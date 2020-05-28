@@ -25,7 +25,7 @@ abstract class AbstractConfigurator
     /** @internal */
     protected $definition;
 
-    public function __call(string $method, array $args)
+    public function __call($method, $args)
     {
         if (method_exists($this, 'set'.$method)) {
             return $this->{'set'.$method}(...$args);
